@@ -15,3 +15,5 @@ lerna-debug.log*
 /coverage
 /.nyc_output
 
+# environment variables
+.env
