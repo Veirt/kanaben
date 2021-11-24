@@ -19,6 +19,9 @@
     "noFallthroughCasesInSwitch": false,
     "paths": {
       "@config/*": ["./src/config/*"]
+    },
+    "watchOptions": {
+      "excludeFiles": ["./client/*"]
     }
   }
 }

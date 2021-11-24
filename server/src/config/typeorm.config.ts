@@ -11,7 +11,7 @@ const TypeOrmConfig: TypeOrmModuleAsyncOptions = {
       type: 'postgres',
       url: configService.get('DATABASE_URL'),
       synchronize: development,
-      entities: [`${__dirname}/**/*.entity{.ts,.js}`],
+      entities: [__dirname + '/../**/*.entity.{ts,js}'],
     };
   },
 };
