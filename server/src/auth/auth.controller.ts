@@ -1,9 +1,17 @@
-import { Controller, Get, Request, Response, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Request,
+  Response,
+  UseGuards,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Response as ExpressResponse } from 'express';
 import { ReqUser } from 'src/@types/req';
 import { AuthService } from './auth.service';
 import { DiscordAuthGuard } from './guards/discord-auth.guard';
+import { JwtAuthGuard } from './guards/jwt-auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -11,6 +19,12 @@ export class AuthController {
     private readonly authService: AuthService,
     private readonly configService: ConfigService,
   ) {}
+
+  @UseGuards(JwtAuthGuard)
+  @Post('')
+  async session(@Request() req: ReqUser) {
+    return req.user;
+  }
 
   @UseGuards(DiscordAuthGuard)
   @Get('discord')

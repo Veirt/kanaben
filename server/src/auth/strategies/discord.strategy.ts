@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { Profile, Scope, Strategy } from '@oauth-everything/passport-discord';
+import { UpdateDiscordUserDto } from 'src/users/dto/update-discord-user.dto';
 import { UsersService } from 'src/users/users.service';
 
 @Injectable()
@@ -27,6 +28,13 @@ export class DiscordStrategy extends PassportStrategy(Strategy) {
       });
     }
 
-    return user;
+    const updateDiscordUserDto: UpdateDiscordUserDto = {
+      avatar: profile.photos[0].value,
+    };
+
+    return this.usersService.updateDiscordUser(
+      profile.id,
+      updateDiscordUserDto,
+    );
   }
 }

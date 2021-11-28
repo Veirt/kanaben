@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { UpdateDiscordUserDto } from './dto/update-discord-user.dto';
 import { User } from './entities/user.entity';
 
 @Injectable()
@@ -28,11 +28,18 @@ export class UsersService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} user`;
+    const user = this.usersRepository.findOne(id);
+    return user;
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async updateDiscordUser(
+    discordId: string,
+    updateDiscordUserDto: UpdateDiscordUserDto,
+  ) {
+    return this.usersRepository.update(
+      { discord_id: discordId },
+      updateDiscordUserDto,
+    );
   }
 
   remove(id: number) {
